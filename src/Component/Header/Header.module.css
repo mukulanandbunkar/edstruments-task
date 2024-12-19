@@ -1,0 +1,19 @@
+.header {
+  color: #ffffff;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 8%;
+}
+
+.header__welcome-note {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.header__welcome-note > span {
+  color: #10b981;
+}

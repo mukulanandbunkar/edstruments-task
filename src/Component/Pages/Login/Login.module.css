@@ -1,0 +1,95 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92%;
+  background: linear-gradient(145deg, #e0e7ff, #ede9fe, #ffffff);
+  background-attachment: fixed;
+  background-size: cover;
+  color: #4f46e5;
+  padding: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+  flex-direction: column;
+}
+
+.intro-description {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.intro-description h1 {
+  font-size: 2rem;
+  color: #4f46e5;
+  margin-bottom: 10px;
+}
+
+.intro-description p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.input-field {
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input-field:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.5);
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #4f46e5;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3730a3;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .login-form {
+    padding: 20px;
+    width: 100%;
+    gap: 15px;
+  }
+
+  .intro-description h1 {
+    font-size: 1.5rem;
+  }
+
+  .intro-description p {
+    font-size: 1rem;
+  }
+}
