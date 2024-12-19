@@ -15,7 +15,7 @@ export const userForm = [
 
 export const taskForm = {
   type: "text",
-  name: "taskName",
+  name: "name",
   placeholder: "Enter Task Name",
   required: true,
 };

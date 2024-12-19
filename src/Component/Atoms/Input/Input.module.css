@@ -25,3 +25,12 @@
 .input-field:hover {
   background: #e2e8f0;
 }
+
+.input--error {
+  position: relative;
+  margin: 0;
+  top: 5px;
+  font-size: 13px;
+  left: 9px;
+  color: red;
+}

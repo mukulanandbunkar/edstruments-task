@@ -1,31 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TaskWrapper.module.css";
 import EditModal from "../../Atoms/Modal/EditModal";
 import Button from "../../Atoms/Button/Button";
+import { connect } from "react-redux";
 import { FaCheck } from "react-icons/fa";
 import { FaUndoAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
+import { setTaskList } from "../../../services/Reducer/task";
+import { useParams, useNavigate } from "react-router-dom";
+import dataServices from "../../../services/data.services";
 
-function TaskWrapper() {
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "Sample Task 1", completed: false },
-    { id: 2, name: "Sample Task 2", completed: true },
-  ]);
-
+function TaskWrapper(props) {
+  const currentUser = localStorage.getItem("current-user");
+  const navigate = useNavigate();
+  const { userName } = useParams();
+  const { fetchTaskList, updateTaskList } = dataServices;
+  const { taskList, setTaskList, filter } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const taskListAsPerUser = fetchTaskList(userName);
+    if (taskListAsPerUser) {
+      setTaskList(taskListAsPerUser);
+      setTasks(taskListAsPerUser);
+    }
+  }, [userName, setTaskList]);
+
+  useEffect(() => {
+    if (filter !== "all") {
+      const updatedList = taskList.filter((task) => {
+        if (filter === "completed") {
+          return task.completed;
+        } else {
+          return !task.completed;
+        }
+      });
+      setTasks(updatedList);
+    } else {
+      setTasks(taskList);
+    }
+  }, [filter, taskList]);
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, [currentUser, navigate]);
 
   const deleteTask = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    const updatedList = taskList.filter((task) => task.id !== taskId);
+    setTaskList(updatedList);
+    updateTaskList(userName, updatedList);
   };
 
   const toggleTaskCompletion = (taskId) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
+    const updatedList = taskList.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
     );
+    setTaskList(updatedList);
+    updateTaskList(userName, updatedList);
   };
 
   const openEditModal = (task) => {
@@ -39,11 +75,11 @@ function TaskWrapper() {
   };
 
   const updateTaskName = (taskId, newName) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, name: newName } : task
-      )
+    const updatedList = taskList.map((task) =>
+      task.id === taskId ? { ...task, name: newName } : task
     );
+    setTaskList(updatedList);
+    updateTaskList(userName, updatedList);
     closeEditModal();
   };
 
@@ -59,37 +95,39 @@ function TaskWrapper() {
           <p>No tasks available. Start by adding a new task!</p>
         </div>
       ) : (
-        tasks.map((task) => (
-          <div
-            key={task.id}
-            className={`${styles["task-wrapper__card"]} ${
-              task.completed ? styles["task-wrapper__card--completed"] : ""
-            }`}
-          >
-            <span
-              style={{
-                textDecoration: task.completed ? "line-through" : "unset",
-              }}
-              className={styles["task-wrapper__name"]}
+        <div style={{ maxHeight: "calc(100% - 112px)", overflow: "auto" }}>
+          {tasks.map((task) => (
+            <div
+              key={task.id}
+              className={`${styles["task-wrapper__card"]} ${
+                task.completed ? styles["task-wrapper__card--completed"] : ""
+              }`}
             >
-              {task.name}
-            </span>
-            <div className={styles["task-wrapper__actions"]}>
-              <Button
-                variant="secondary"
-                onClick={() => toggleTaskCompletion(task.id)}
+              <span
+                style={{
+                  textDecoration: task.completed ? "line-through" : "unset",
+                }}
+                className={styles["task-wrapper__name"]}
               >
-                {task.completed ? <FaUndoAlt /> : <FaCheck />}
-              </Button>
-              <Button variant="secondary" onClick={() => openEditModal(task)}>
-                <MdModeEdit />
-              </Button>
-              <Button variant="primary" onClick={() => deleteTask(task.id)}>
-                <MdDelete />
-              </Button>
+                {task.name}
+              </span>
+              <div className={styles["task-wrapper__actions"]}>
+                <Button
+                  variant="secondary"
+                  onClick={() => toggleTaskCompletion(task.id)}
+                >
+                  {task.completed ? <FaUndoAlt /> : <FaCheck />}
+                </Button>
+                <Button variant="secondary" onClick={() => openEditModal(task)}>
+                  <MdModeEdit />
+                </Button>
+                <Button variant="primary" onClick={() => deleteTask(task.id)}>
+                  <MdDelete />
+                </Button>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
 
       {isEditing && (
@@ -103,4 +141,15 @@ function TaskWrapper() {
   );
 }
 
-export default TaskWrapper;
+const mapsStateToProps = (state) => ({
+  taskList: state.task.taskList,
+  filter: state.task.filter,
+});
+
+const mapsDispatchToProps = (dispatch) => ({
+  setTaskList: (data) => dispatch(setTaskList(data)),
+});
+
+const connector = connect(mapsStateToProps, mapsDispatchToProps);
+
+export default connector(TaskWrapper);

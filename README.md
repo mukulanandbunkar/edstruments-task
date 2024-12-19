@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Task Management App with Login
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple task management application built with React, implementing user authentication, task management, and persistent data storage using `localStorage`.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### 1. Login/Logout System
+- Users can log in using a username and password.
+- Sessions are stored in `localStorage` and persist across page reloads.
+- Logout clears the session and redirects to the login screen.
 
-### `npm start`
+### 2. Task Management
+- Add, view, edit, delete, and mark tasks as completed.
+- Tasks are tied to the logged-in user and stored persistently in `localStorage`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 3. State Management
+- Uses Redux Toolkit for state management (auth and tasks).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 4. Bonus Features
+- Form validation for login and task inputs.
+- Task filtering (e.g., completed, incomplete).
+- Error handling for invalid inputs.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Setup
 
-### `npm run build`
+### 1. Clone the Repository
+```bash
+git clone <repository_url>
+cd edstruments-task
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Install Dependencies
+Ensure you have Node.js version 16 or higher installed.
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Start the Application
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4. Build for Production
+```bash
+npm run build
+```
 
-### `npm run eject`
+### 5. Run Tests
+```bash
+npm test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **React**: Front-end framework for building UI components.
+- **Redux Toolkit**: State management for authentication and tasks.
+- **React Router DOM**: Routing between login and task management pages.
+- **localStorage**: Persistent storage for user sessions and tasks.
+- **CSS Modules (BEM)**: Component-specific, scoped styles.
+- **Atomic Design**: Structured components using Atomic Design principles.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Directory Structure
 
-## Learn More
+```
+src/
+├── components/                   # React components organized by Atomic Design
+│   ├── atoms/                    # Smallest reusable components
+│   │   ├── Button/               # Button atomic component
+│   │   ├── Card/                 # Card atomic component
+│   │   ├── Input/                # Input atomic component
+│   │   └── Modal/                # Modal atomic component
+│   ├── molecules/                # Small combinations of atoms
+│   │   ├── TaskForm/             # Task form for adding/editing tasks
+│   │   └── TaskWrapper/          # Wrapper for individual tasks      
+│   |── Header.js                 # Header component
+│   │── Footer.js                 # Footer component
+│   │── Layout.js                 # Main layout
+│   ├── pages/                    # Complete pages for routing
+│   │   ├── LoginPage.js          # Login page
+│   │   └── TaskManagementPage.js # Task management page
+├── services/                     # Helper services
+│   ├── Reducer                  
+|   |    |--task.js               # Task Slice for Toolkit
+|   |-- Store                     # Store middleware for redux toolkit
+|   |    |--reducer.js            # default name import and export
+|   |    |-- store.js             # middle ware export
+│   ├── data.services.js          # LocalStorage utilities for persisting data
+│   └── form.services.js          # Utility for form validation
+├── App.js                        # Main app entry point with routing
+├── index.js                      # React entry point
+├── .gitignore                    # Git ignore file
+├── package.json                  # Project dependencies and scripts
+└── README.md                     # Project documentation
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -22,7 +22,11 @@ function EditModal({ task, onClose, onSave }) {
           onChange={(e) => setNewName(e.target.value)}
         />
         <div className={styles["modal__actions"]}>
-          <Button variant="success" onClick={handleSave}>
+          <Button
+            disabled={!newName.trim()}
+            variant="success"
+            onClick={handleSave}
+          >
             Save
           </Button>
           <Button variant="primary" onClick={onClose}>

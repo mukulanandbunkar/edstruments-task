@@ -18,7 +18,6 @@ function Login() {
       ...formVal,
       [event.target.name]: event.target.value,
     });
-    console.log(formVal);
   };
 
   const onFormSubmit = (event) => {
@@ -50,7 +49,11 @@ function Login() {
         <h2>Login to Your Account</h2>
         <form onSubmit={onFormSubmit} className={styles["login-form"]}>
           {userForm.map((input) => (
-            <Input key={input.name} onChange={onInputChange} {...input} />
+            <Input
+              key={input.name}
+              onChange={onInputChange}
+              {...input}
+            />
           ))}
           <Button variant="secondary" type="submit">
             Login

@@ -3,7 +3,7 @@ import styles from "./Button.module.css";
 import clsx from "clsx";
 
 function Button(props) {
-  const { children, className, variant } = props;
+  const { children, className, variant, disabled } = props;
 
   const classes = clsx(styles["base-button"], className, {
     [styles.primary]: variant === "primary",
@@ -11,9 +11,13 @@ function Button(props) {
     [styles.success]: variant === "success",
   });
   return (
-      <button {...props} className={classes}>
-        {children}
-      </button>
+    <button
+      style={{ opacity: disabled ? 0.5 : 1 }}
+      {...props}
+      className={classes}
+    >
+      {children}
+    </button>
   );
 }
 
