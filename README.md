@@ -19,7 +19,7 @@ This project is a simple task management application built with React, implement
 ### 4. Bonus Features
 - Form validation for login and task inputs.
 - Task filtering (e.g., completed, incomplete).
-- Error handling for invalid inputs.
+- Error handling for empty inputs.
 
 ---
 
@@ -27,7 +27,7 @@ This project is a simple task management application built with React, implement
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository_url>
+git clone https://github.com/mukulanandbunkar/edstruments-task.git
 cd edstruments-task
 ```
 
