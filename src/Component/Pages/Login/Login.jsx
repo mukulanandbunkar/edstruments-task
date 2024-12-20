@@ -32,7 +32,7 @@ function Login() {
     if (currentUser) {
       navigate(`/tasks/${currentUser}`);
     }
-  }, []);
+  }, [currentUser, navigate]);
 
   return (
     <div className={styles["login-container"]}>

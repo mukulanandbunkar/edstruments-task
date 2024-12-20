@@ -8,12 +8,10 @@ import { FaUndoAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { setTaskList } from "../../../services/Reducer/task";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import dataServices from "../../../services/data.services";
 
 function TaskWrapper(props) {
-  const currentUser = localStorage.getItem("current-user");
-  const navigate = useNavigate();
   const { userName } = useParams();
   const { fetchTaskList, updateTaskList } = dataServices;
   const { taskList, setTaskList, filter } = props;
@@ -27,7 +25,7 @@ function TaskWrapper(props) {
       setTaskList(taskListAsPerUser);
       setTasks(taskListAsPerUser);
     }
-  }, [userName, setTaskList]);
+  }, [userName, setTaskList, fetchTaskList]);
 
   useEffect(() => {
     if (filter !== "all") {
@@ -44,11 +42,6 @@ function TaskWrapper(props) {
     }
   }, [filter, taskList]);
 
-  useEffect(() => {
-    if (!currentUser) {
-      navigate("/login");
-    }
-  }, [currentUser, navigate]);
 
   const deleteTask = (taskId) => {
     const updatedList = taskList.filter((task) => task.id !== taskId);

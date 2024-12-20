@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Header.module.css";
 import Button from "../Atoms/Button/Button";
 import { useNavigate } from "react-router";
